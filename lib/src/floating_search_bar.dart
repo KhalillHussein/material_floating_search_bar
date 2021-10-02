@@ -656,6 +656,7 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
               child: Opacity(
                 opacity: widget.opacity,
                 child: Material(
+                  borderRadius: borderRadius,
                   child: Container(
                     width: transition.lerpWidth(),
                     height: transition.lerpHeight(),
