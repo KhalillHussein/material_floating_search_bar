@@ -43,12 +43,12 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
   /// The blur coefficient.
   ///
   /// If not specified, defaults to `0`.
-  final double? sigma;
+  final double sigma;
 
   /// The opacity value.
   ///
   /// If not specified, defaults to `1` which is fully opatique.
-  final double? opacity;
+  final double opacity;
 
   /// The color of the card.
   ///
@@ -645,11 +645,11 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
         child: ClipRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(
-              sigmaX: 2,
-              sigmaY: 2,
+              sigmaX: widget.sigma!,
+              sigmaY: widget.sigma!,
             ),
             child: Opacity(
-              opacity: 0.95,
+              opacity: widget.opacity!,
               child: Material(
                 elevation: transition.lerpElevation(),
                 shadowColor: style.shadowColor,
