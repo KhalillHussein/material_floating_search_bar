@@ -219,7 +219,7 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
     curve: Curves.easeInOutCubic,
   );
 
-  late final _input = TextController()
+  late final TextController _input = TextController()
     ..addListener(() {
       if (_input.text != queryNotifer.value) {
         queryNotifer.value = _input.text;

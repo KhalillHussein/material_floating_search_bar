@@ -40,6 +40,16 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
   /// Defaults to the themes accent color if not specified.
   final Color? accentColor;
 
+  /// The blur coefficient.
+  ///
+  /// If not specified, defaults to `0`.
+  final double? sigma;
+
+  /// The opacity value.
+  ///
+  /// If not specified, defaults to `1` which is fully opatique.
+  final double? opacity;
+
   /// The color of the card.
   ///
   /// If not specified, defaults to `theme.cardColor`.
@@ -344,6 +354,8 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
     Key? key,
     Duration implicitDuration = const Duration(milliseconds: 600),
     Curve implicitCurve = Curves.linear,
+    this.opacity = 1.0,
+    this.sigma = 0.0,
     this.body,
     this.accentColor,
     this.backgroundColor,
@@ -630,23 +642,35 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
       focused: isOpen,
       child: Padding(
         padding: transition.lerpMargin(),
-        child: Material(
-          elevation: transition.lerpElevation(),
-          shadowColor: style.shadowColor,
-          borderRadius: borderRadius,
-          child: Container(
-            width: transition.lerpWidth(),
-            height: transition.lerpHeight(),
-            padding: EdgeInsets.only(top: padding.top, bottom: padding.bottom),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: transition.lerpBackgroundColor(),
-              border: Border.fromBorderSide(style.border),
-              borderRadius: borderRadius,
+        child: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(
+              sigmaX: 2,
+              sigmaY: 2,
             ),
-            child: ClipRRect(
-              borderRadius: borderRadius,
-              child: _buildInnerBar(),
+            child: Opacity(
+              opacity: 0.95,
+              child: Material(
+                elevation: transition.lerpElevation(),
+                shadowColor: style.shadowColor,
+                borderRadius: borderRadius,
+                child: Container(
+                  width: transition.lerpWidth(),
+                  height: transition.lerpHeight(),
+                  padding:
+                      EdgeInsets.only(top: padding.top, bottom: padding.bottom),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: transition.lerpBackgroundColor(),
+                    border: Border.fromBorderSide(style.border),
+                    borderRadius: borderRadius,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: borderRadius,
+                    child: _buildInnerBar(),
+                  ),
+                ),
+              ),
             ),
           ),
         ),
