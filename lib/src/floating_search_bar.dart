@@ -642,32 +642,35 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
       focused: isOpen,
       child: Padding(
         padding: transition.lerpMargin(),
-        child: ClipRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: widget.sigma!,
-              sigmaY: widget.sigma!,
-            ),
-            child: Opacity(
-              opacity: widget.opacity!,
-              child: Material(
-                elevation: transition.lerpElevation(),
-                shadowColor: style.shadowColor,
-                borderRadius: borderRadius,
-                child: Container(
-                  width: transition.lerpWidth(),
-                  height: transition.lerpHeight(),
-                  padding:
-                      EdgeInsets.only(top: padding.top, bottom: padding.bottom),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: transition.lerpBackgroundColor(),
-                    border: Border.fromBorderSide(style.border),
-                    borderRadius: borderRadius,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: borderRadius,
-                    child: _buildInnerBar(),
+        child: Material(
+          elevation: transition.lerpElevation(),
+          shadowColor: style.shadowColor,
+          borderRadius: borderRadius,
+          color: Colors.transparent,
+          child: ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: widget.sigma,
+                sigmaY: widget.sigma,
+              ),
+              child: Opacity(
+                opacity: widget.opacity,
+                child: Material(
+                  child: Container(
+                    width: transition.lerpWidth(),
+                    height: transition.lerpHeight(),
+                    padding: EdgeInsets.only(
+                        top: padding.top, bottom: padding.bottom),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: transition.lerpBackgroundColor(),
+                      border: Border.fromBorderSide(style.border),
+                      borderRadius: borderRadius,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: borderRadius,
+                      child: _buildInnerBar(),
+                    ),
                   ),
                 ),
               ),
